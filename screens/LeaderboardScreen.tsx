@@ -1,25 +1,28 @@
-import { Text, View } from "react-native";
+import { View, Text } from "react-native";
 import { OrdinalCard } from "../components/ui/OrdinalCard";
 import { ProgressBar } from "../components/ui/ProgressBar";
-import { useChallengeStore } from "../store/challengeStore";
-import { useTaskStore } from "../store/taskStore";
+import { ParticipantsList } from "../components/leaderboard/ParticipantsList";
+import { COLORS } from "../theme";
 
 export default function LeaderboardScreen() {
-  const points = useChallengeStore((s) => s.getVerifiedPoints());
-  const tasks = useTaskStore((s) => s.tasks);
-
-  const progress =
-    tasks.filter((t) => t.status === "verified").length / tasks.length;
-
   return (
-    <View style={{ padding: 16 }}>
+    <View style={{ padding: 16, flex: 1 }}>
       <OrdinalCard place={3} />
 
-      <Text style={{ color: "white", fontSize: 36 }}>{points} pts</Text>
+      <Text
+        style={{
+          color: COLORS.white,
+          fontSize: 36,
+          fontWeight: "700",
+          marginVertical: 16,
+        }}
+      >
+        35 pts
+      </Text>
 
-      <ProgressBar progress={progress} />
+      <ProgressBar progress={0.6} />
 
-      {/* participant list next */}
+      <ParticipantsList />
     </View>
   );
 }
